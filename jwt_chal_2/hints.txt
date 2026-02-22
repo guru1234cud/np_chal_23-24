@@ -1,11 +1,11 @@
-Luna's Notes
-============
+Autobot Signal Archive
+======================
 
-My password system is based on time and special dates.
-I always use UTC because it's consistent.
+Bumblebee's encryption protocol is tied to time and key battle dates.
+He always synced to UTC — consistent across all sectors of the galaxy.
 
-The eclipse happened on the 17th... I'll never forget that day.
+The 17th Siege... that's a day no Autobot will forget.
 
 Remember: Time changes everything, in windows of moments.
 
-- Luna 💫
+— Optimus Prime ⚡

@@ -19,7 +19,7 @@ try:
     try:
         login_resp = requests.post(
             f"{BASE_URL}/api/login", 
-            json={'username': 'ethan', 'password': 'luna2024'}
+            json={'username': 'optimus', 'password': 'bee2007'}
         )
         
         if login_resp.status_code == 200:
