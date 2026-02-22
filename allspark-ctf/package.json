@@ -1,0 +1,13 @@
+{
+    "name": "allspark-ctf",
+    "version": "1.0.0",
+    "description": "CTF Challenge — The AllSpark Terminal",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "apollo-server": "^3.12.0",
+        "graphql": "^16.6.0"
+    }
+}
