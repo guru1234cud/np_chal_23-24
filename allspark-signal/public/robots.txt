@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /secret-energon-vault
+Disallow: /api/internal
+# Soundwave sees all. You see nothing.
