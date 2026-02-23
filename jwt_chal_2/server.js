@@ -26,7 +26,7 @@ app.post('/api/login', (req, res) => {
             secret,
             { expiresIn: '1h' }
         );
-        res.cookie('formula', '(hours * 60 + minutes) / 10', { httpOnly: false });
+        res.cookie('bee_sync', 'Bumblebee re-keys every 10 Earth minutes. Midnight resets the count. UTC only. B-127 counted how many full intervals had passed since the day began — not the time itself, the count.', { httpOnly: false });
         res.json({ token, message: 'Autobot signal authenticated. Welcome, Optimus.' });
     } else {
         res.status(401).json({ error: 'Signal authentication failed' });
@@ -38,15 +38,29 @@ app.get('/api/time', (req, res) => {
     const now = new Date();
     const hours = now.getUTCHours();
     const minutes = now.getUTCMinutes();
-    const window = Math.floor((hours * 60 + minutes) / 10);
     const date = now.toISOString().split('T')[0];
     res.json({
         utc: now.toISOString(),
         timestamp: Math.floor(now.getTime() / 1000),
         date,
         hours,
-        minutes,
-        window
+        minutes
+    });
+});
+
+// Energon-1 endpoint — partially recovered transmission fragments
+app.get('/api/energon', (req, res) => {
+    res.json({
+        status: "PARTIAL_DECODE",
+        source: "B-127 / Bumblebee — Field Datapad",
+        recovered_fragments: [
+            "...the key was born from the battle... B-127 always marked time by what he survived...",
+            "...re-keyed itself... I counted... same window, every ten... then the cycle resets at zero...",
+            "...don't transmit raw... the hash first, then the signature... Cybertronian standard...",
+            "...three parts... underscore-linked... the name, the Earth date, the current window...",
+        ],
+        signal_quality: "61%",
+        warning: "Fragments are out of order. Piece it together, Commander."
     });
 });
 
