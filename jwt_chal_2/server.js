@@ -26,7 +26,7 @@ app.post('/api/login', (req, res) => {
             secret,
             { expiresIn: '1h' }
         );
-        res.cookie('bee_sync', 'Bumblebee re-keys every 10 Earth minutes. Midnight resets the count. UTC only. B-127 counted how many full intervals had passed since the day began — not the time itself, the count.', { httpOnly: false });
+        res.cookie('bee_sync', 'Bumblebee re-keys every 10 Earth minutes. Midnight resets the count. UTC only. Hint: convert current UTC time to total minutes since midnight, divide by 10 — drop the remainder.', { httpOnly: false });
         res.json({ token, message: 'Autobot signal authenticated. Welcome, Optimus.' });
     } else {
         res.status(401).json({ error: 'Signal authentication failed' });

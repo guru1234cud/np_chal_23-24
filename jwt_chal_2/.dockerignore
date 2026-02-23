@@ -1,0 +1,7 @@
+node_modules
+npm-debug.log
+exploit.py
+verify_changes.py
+hints.txt
+README.md
+.gitignore
