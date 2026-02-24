@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function DashboardPage() {
     const router = useRouter();
@@ -22,78 +23,103 @@ export default function DashboardPage() {
     const threats = ['SECTOR-7G', 'IACON-RELAY', 'EARTH-OPS', 'SPACE-BRIDGE', 'KAON-MINE'];
 
     return (
-        <div className="page-wrapper">
-            <div className="scanline-overlay" />
-            <nav className="top-bar">
-                <span className="top-bar-brand">⬡ SOUNDWAVE INTELLIGENCE HUB v2.1</span>
-                <div className="top-bar-status">
-                    <span><span className="status-dot" />AUTHENTICATED: {session.user?.toUpperCase()}</span>
-                    <span className="badge badge-red" style={{ fontSize: '0.6rem' }}>GRUNT ACCESS</span>
+        <div className="app-container">
+            {/* Header */}
+            <header className="nav-header">
+                <div className="nav-brand">
+                    <svg className="nav-brand-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 10px rgba(255, 0, 60, 0.8))', fill: 'var(--danger)' }}>
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round" />
+                        <circle cx="12" cy="12" r="3" fill="currentColor" />
+                    </svg>
+                    <div className="nav-brand-text">ALLSPARK <span>COMMAND</span></div>
                 </div>
-            </nav>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    <div style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1rem', color: 'var(--primary)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+                        <div style={{ width: '8px', height: '8px', background: 'var(--primary)', borderRadius: '50%', boxShadow: '0 0 10px var(--primary)', animation: 'pulse-glow 1s infinite alternate' }} />
+                        {session.user?.toUpperCase()}
+                    </div>
+                    <span style={{ padding: '0.2rem 0.6rem', fontSize: '0.75rem', border: '1px solid var(--danger)', color: 'var(--danger)', borderRadius: 'var(--radius-sm)' }}>
+                        GRUNT ACCESS
+                    </span>
+                </div>
+            </header>
 
-            <div className="section">
-                <h2 className="font-display" style={{ fontSize: '1rem', letterSpacing: '0.2em', marginBottom: '8px', color: 'var(--text-dim)' }}>
+            <main className="section-padding" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%', marginTop: '60px' }}>
+                <h2 className="font-orbitron" style={{ fontSize: '1.5rem', letterSpacing: '0.2em', marginBottom: '1.5rem', color: 'var(--text-muted)' }}>
                     DECEPTICON COMMAND DASHBOARD
                 </h2>
-                <div className="alert alert-warning" style={{ marginBottom: '24px' }}>
-                    [ACCESS CONTROL] Role: decepticon-grunt — Classified sectors are restricted. Consult Soundwave for elevated access.
+
+                <div className="alert alert-warning" style={{ marginBottom: '2rem', borderColor: 'var(--accent-gold)', background: 'rgba(251, 191, 36, 0.1)', color: '#fde68a' }}>
+                    <strong>[ACCESS CONTROL]</strong> Role: decepticon-grunt — Classified sectors are restricted. Consult Soundwave for elevated access.
                 </div>
 
-                <div className="grid-3" style={{ marginBottom: '24px' }}>
+                <div className="features-grid" style={{ marginBottom: '3rem' }}>
                     {[
-                        { label: 'ENERGON OUTPUT', value: `${energon[tick % energon.length]}%`, sub: 'Kaon Refinery Alpha' },
-                        { label: 'ACTIVE OPERATIVES', value: '247', sub: 'Deployed across sectors' },
-                        { label: 'THREAT LEVEL', value: 'OMEGA-4', sub: 'Elevated — Autobots active' },
+                        { label: 'ENERGON OUTPUT', value: `${energon[tick % energon.length]}%`, sub: 'Kaon Refinery Alpha', color: 'var(--primary-bright)' },
+                        { label: 'ACTIVE OPERATIVES', value: '247', sub: 'Deployed across sectors', color: 'var(--text-main)' },
+                        { label: 'THREAT LEVEL', value: 'OMEGA-4', sub: 'Elevated — Autobots active', color: 'var(--danger)' },
                     ].map(s => (
-                        <div key={s.label} className="stat-box">
-                            <div className="stat-value" style={{ fontSize: '1.5rem' }}>{s.value}</div>
-                            <div className="stat-label">{s.label}</div>
-                            <div style={{ fontSize: '0.6rem', color: 'var(--text-dim)', fontFamily: 'Share Tech Mono', marginTop: '4px' }}>{s.sub}</div>
+                        <div key={s.label} className="glass-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
+                            <div className="font-orbitron" style={{ fontSize: '3rem', fontWeight: 900, color: s.color, textShadow: `0 0 15px ${s.color}`, marginBottom: '0.5rem' }}>{s.value}</div>
+                            <div className="font-rajdhani" style={{ fontSize: '1.1rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.15em' }}>{s.label}</div>
+                            <div style={{ fontSize: '0.8rem', color: 'var(--border-glass)', fontFamily: 'Share Tech Mono, monospace', marginTop: '0.5rem' }}>{s.sub}</div>
                         </div>
                     ))}
                 </div>
 
-                <div className="grid-2">
-                    <div className="card">
-                        <div className="card-header">◈ ENERGON FLOW METRICS</div>
+                <div className="features-grid" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))' }}>
+                    <div className="glass-card">
+                        <h3 className="font-orbitron" style={{ fontSize: '1.2rem', color: 'var(--primary)', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-glass)', paddingBottom: '0.5rem' }}>
+                            ◈ ENERGON FLOW METRICS
+                        </h3>
                         {energon.map((val, i) => (
-                            <div key={i} style={{ marginBottom: '10px' }}>
-                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.65rem', fontFamily: 'Share Tech Mono', color: 'var(--text-secondary)', marginBottom: '4px' }}>
+                            <div key={i} style={{ marginBottom: '1rem' }}>
+                                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '0.85rem', fontFamily: 'Share Tech Mono, monospace', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
                                     <span>REFINERY-{String(i + 1).padStart(2, '0')}</span>
                                     <span>{(val + (tick % 5 - 2))}%</span>
                                 </div>
-                                <div className="progress-bar">
-                                    <div className="progress-fill" style={{ width: `${val}%` }} />
+                                <div style={{ height: '6px', background: 'var(--bg-base)', borderRadius: '3px', overflow: 'hidden' }}>
+                                    <div style={{ height: '100%', width: `${val}%`, background: 'linear-gradient(90deg, transparent, var(--primary))', transition: 'width 1s ease' }} />
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    <div className="card">
-                        <div className="card-header">◎ MONITORED THREATS</div>
+                    <div className="glass-card">
+                        <h3 className="font-orbitron" style={{ fontSize: '1.2rem', color: 'var(--accent-gold)', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-glass)', paddingBottom: '0.5rem' }}>
+                            ◎ MONITORED THREATS
+                        </h3>
                         {threats.map((t, i) => (
                             <div key={t} style={{
                                 display: 'flex', justifyContent: 'space-between', alignItems: 'center',
-                                padding: '10px 0', borderBottom: '1px solid var(--dark-border)',
-                                fontFamily: 'Share Tech Mono', fontSize: '0.75rem',
+                                padding: '1rem 0', borderBottom: '1px solid var(--border-glass)',
+                                fontFamily: 'Share Tech Mono, monospace', fontSize: '0.9rem',
                             }}>
-                                <span style={{ color: 'var(--text-secondary)' }}>{t}</span>
-                                <span className={`badge ${i % 3 === 0 ? 'badge-red' : i % 3 === 1 ? 'badge-purple' : 'badge-cyan'}`}>
+                                <span style={{ color: 'var(--text-muted)' }}>{t}</span>
+                                <span style={{
+                                    padding: '0.2rem 0.6rem',
+                                    fontSize: '0.75rem',
+                                    background: i % 3 === 0 ? 'rgba(255, 0, 60, 0.15)' : i % 3 === 1 ? 'rgba(251, 191, 36, 0.15)' : 'rgba(0, 240, 255, 0.15)',
+                                    color: i % 3 === 0 ? 'var(--danger)' : i % 3 === 1 ? 'var(--accent-gold)' : 'var(--primary)',
+                                    border: `1px solid ${i % 3 === 0 ? 'var(--danger)' : i % 3 === 1 ? 'var(--accent-gold)' : 'var(--primary)'}`,
+                                    borderRadius: '2px'
+                                }}>
                                     {['CRITICAL', 'HIGH', 'MEDIUM'][i % 3]}
                                 </span>
                             </div>
                         ))}
-                        <div className="alert alert-warning" style={{ marginTop: '16px', fontSize: '0.7rem' }}>
+                        <div className="alert alert-warning" style={{ marginTop: '2rem', fontSize: '0.8rem', background: 'rgba(2, 6, 23, 0.6)', borderColor: 'var(--border-glass)' }}>
                             [ACCESS RESTRICTED] Full threat matrix requires Soundwave-level clearance.
                         </div>
                     </div>
                 </div>
-            </div>
+            </main>
 
-            <footer className="footer">
-                <span>SESSION: {session.role?.toUpperCase()} | ACCESS: {session.access?.toUpperCase()}</span>
-                <span>CYCLE {tick.toString().padStart(6, '0')}</span>
+            <footer className="footer" style={{ marginTop: 'auto' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', maxWidth: '1200px', margin: '0 auto', width: '100%', fontFamily: 'Share Tech Mono, monospace', fontSize: '0.8rem' }}>
+                    <span>SESSION: {session.role?.toUpperCase()} | ACCESS: {session.access?.toUpperCase()}</span>
+                    <span>CYCLE {tick.toString().padStart(6, '0')}</span>
+                </div>
             </footer>
         </div>
     );

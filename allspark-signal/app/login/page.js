@@ -61,38 +61,42 @@ export default function LoginPage() {
     }
 
     return (
-        <div className="page-wrapper" style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <div className="scanline-overlay" />
-            <div className="decepticon-watermark">⬡</div>
+        <div className="app-container" style={{ justifyContent: 'center', alignItems: 'center' }}>
 
             {/* Nav */}
-            <nav className="top-bar" style={{ position: 'fixed', top: 0, width: '100%' }}>
-                <span className="top-bar-brand">⬡ SOUNDWAVE INTELLIGENCE HUB v2.1</span>
-                <div className="top-bar-status">
-                    <span><span className="status-dot red" />UNAUTHENTICATED</span>
+            <header className="nav-header" style={{ position: 'fixed', top: 0, width: '100%' }}>
+                <div className="nav-brand">
+                    <svg className="nav-brand-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 0 10px rgba(255, 0, 60, 0.8))', fill: 'var(--danger)' }}>
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinejoin="round" />
+                        <circle cx="12" cy="12" r="3" fill="currentColor" />
+                    </svg>
+                    <div className="nav-brand-text" style={{ color: 'var(--text-main)' }}>SOUNDWAVE <span style={{ color: 'var(--danger)' }}>INTELLIGENCE HUD</span></div>
                 </div>
-            </nav>
+                <div style={{ fontFamily: 'Rajdhani, sans-serif', fontSize: '1rem', color: 'var(--danger)', display: 'flex', alignItems: 'center', gap: '0.5rem', fontWeight: 600 }}>
+                    <div style={{ width: '8px', height: '8px', background: 'var(--danger)', borderRadius: '50%', boxShadow: '0 0 10px var(--danger)', animation: 'pulse-glow 1s infinite alternate' }} />
+                    UNAUTHENTICATED CACHE
+                </div>
+            </header>
 
-            <div style={{ marginTop: '80px', width: '100%', maxWidth: '480px', padding: '0 24px' }}>
-                <div style={{ textAlign: 'center', marginBottom: '40px' }}>
-                    <div style={{ fontSize: '3rem', marginBottom: '12px', filter: 'drop-shadow(0 0 15px rgba(168,85,247,0.7))' }}>⬡</div>
-                    <h1 className="font-display" style={{ fontSize: '1.1rem', letterSpacing: '0.25em', color: 'var(--text-primary)', marginBottom: '8px' }}>
+            <div style={{ marginTop: '120px', width: '100%', maxWidth: '500px', padding: '0 2rem' }}>
+                <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+                    <div style={{ fontSize: '3.5rem', marginBottom: '1rem', filter: 'drop-shadow(0 0 20px rgba(255,0,60,0.5))', animation: 'float 4s ease-in-out infinite' }}>⬡</div>
+                    <h1 className="font-orbitron" style={{ fontSize: '1.4rem', letterSpacing: '0.2em', color: 'var(--text-main)', marginBottom: '0.5rem' }}>
                         DECEPTICON COMMAND PORTAL
                     </h1>
-                    <p className="font-mono" style={{ fontSize: '0.7rem', color: 'var(--text-dim)', letterSpacing: '0.15em' }}>
+                    <p className="font-rajdhani" style={{ fontSize: '0.9rem', color: 'var(--danger)', letterSpacing: '0.15em', fontWeight: 600 }}>
                         AUTHENTICATION REQUIRED — TIER-5 CLEARANCE
                     </p>
                 </div>
 
-                <div className="card">
-                    <div className="card-header">
-                        <span style={{ color: 'var(--accent-red)' }}>◈</span>
-                        SECURE LOGIN — MYSQL AUTHENTICATION LAYER v7.4
+                <div className="glass-card" style={{ padding: '2rem' }}>
+                    <div className="font-orbitron" style={{ color: 'var(--danger)', fontSize: '0.9rem', letterSpacing: '0.2em', marginBottom: '2rem', display: 'flex', alignItems: 'center', gap: '0.5rem', borderBottom: '1px solid var(--border-glass)', paddingBottom: '1rem' }}>
+                        <span>◈</span> SECURE LOGIN — MYSQL AUTHENTICATION LAYER v7.4
                     </div>
 
                     <form onSubmit={handleLogin} id="decepticon-login-form">
                         <div className="form-group">
-                            <label className="form-label" htmlFor="login-username">USERNAME</label>
+                            <label className="form-label" htmlFor="login-username" style={{ color: 'var(--text-muted)' }}>USERNAME</label>
                             <input
                                 id="login-username"
                                 className="form-input"
@@ -106,7 +110,7 @@ export default function LoginPage() {
                         </div>
 
                         <div className="form-group">
-                            <label className="form-label" htmlFor="login-password">PASSWORD</label>
+                            <label className="form-label" htmlFor="login-password" style={{ color: 'var(--text-muted)' }}>PASSWORD</label>
                             <input
                                 id="login-password"
                                 className="form-input"
@@ -121,16 +125,16 @@ export default function LoginPage() {
 
                         {error && (
                             <div className="alert alert-error" id="login-error-msg">
-                                <span style={{ color: 'var(--accent-red)' }}>[DB-ERR]</span> {error}
+                                <strong>[DB-ERR]</strong> {error}
                             </div>
                         )}
 
                         <button
                             type="submit"
                             id="login-submit-btn"
-                            className="btn btn-primary w-full"
+                            className="btn btn-primary"
                             disabled={loading}
-                            style={{ justifyContent: 'center', marginTop: '20px' }}
+                            style={{ width: '100%', marginTop: '1.5rem', background: loading ? 'var(--text-muted)' : 'var(--danger)', color: '#fff' }}
                         >
                             {loading ? '◈ QUERYING DATASTORE…' : '◈ ACCESS COMMAND PORTAL'}
                         </button>
@@ -139,17 +143,19 @@ export default function LoginPage() {
 
                 {/* Fake DB footer — makes it feel like a real MySQL-backed app */}
                 <div style={{
-                    marginTop: '16px',
-                    padding: '10px 14px',
-                    background: 'rgba(5,0,8,0.8)',
-                    border: '1px solid var(--dark-border)',
-                    fontFamily: 'Share Tech Mono',
-                    fontSize: '0.6rem',
-                    color: 'var(--text-dim)',
+                    marginTop: '2rem',
+                    padding: '1rem',
+                    background: 'rgba(2, 6, 23, 0.6)',
+                    border: '1px solid var(--border-glass)',
+                    borderRadius: 'var(--radius-sm)',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '0.75rem',
+                    color: 'var(--text-muted)',
                     lineHeight: 1.8,
+                    textAlign: 'center'
                 }}>
-                    <div>DB CONN: mysql://172.21.0.4:3306/decepticon_intel</div>
-                    <div>ENGINE: InnoDB 8.0.32 | TABLE: tbl_decepticons | CHARSET: utf8mb4</div>
+                    <div>DB CONN: <span style={{ color: 'var(--primary-bright)' }}>mysql://172.21.0.4:3306/decepticon_intel</span></div>
+                    <div>ENGINE: <strong>InnoDB 8.0.32</strong> | TABLE: <strong style={{ color: 'var(--danger)' }}>tbl_decepticons</strong> | CHARSET: <strong>utf8mb4</strong></div>
                     <div>POOL: 10/100 | SSL: ENABLED | LOG LEVEL: WARN</div>
                 </div>
             </div>
